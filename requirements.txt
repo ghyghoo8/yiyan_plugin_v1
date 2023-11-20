@@ -1,2 +1,3 @@
 flask[async]
 flask_cors
+parsel
