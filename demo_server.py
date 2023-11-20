@@ -6,6 +6,8 @@ from flask_cors import CORS
 import json
 import random
 
+import get_html
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "https://yiyan.baidu.com"}})
 
@@ -26,6 +28,22 @@ async def add_word():
     wordbook.append(word)
     return make_json_response({"message": "单词添加成功"})
 
+@app.route("/search_word", methods=['POST'])
+async def search_word():
+    """
+        搜索单词
+    """
+    word = request.json.get('word', "")
+    htmlStr = get_html.getHtmlContent(word)
+    selector = get_html.getParseSelector(htmlStr)
+    titles = list(set([x.strip() for x in selector.css('h2 a::text').getall()]))
+    titles.remove('')
+    print('selector titles===>', titles)
+    # print('htmlStr==>', htmlStr)
+    prompt = "将搜索结果(titles)按列表选项的形式展示出来，" \
+             "将每一个选项内容翻译出来并展示在下面，" \
+             "最后提示用户选择一个列表选项"
+    return make_json_response({"message": "搜索结果", "titles": titles, prompt: prompt})
 
 @app.route("/delete_word", methods=['DELETE'])
 async def delete_word():

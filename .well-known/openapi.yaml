@@ -34,6 +34,23 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/responseSentences"
+    /search_word:
+        post:
+            operationId: searchWord
+            summary: 搜索查询指定单词的意思
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/searchWord"
+            responses:
+                "200":
+                    description: 搜索结果
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/messageResponse"
     /add_word:
         post:
             operationId: addWord
@@ -87,6 +104,13 @@ components:
                 word:
                     type: string
                     description: 需要添加到单词本中的一个单词
+        searchWord:
+            type: object
+            required: [word]
+            properties:
+                word:
+                    type: string
+                    description: 请输入需要搜索的单词
         deleteWord:
             type: object
             required: [word]
