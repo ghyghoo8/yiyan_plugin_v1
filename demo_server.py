@@ -56,15 +56,17 @@ async def search_word():
         titles.remove('')
     # print('selector titles===>', titles)
     # print('htmlStr==>', htmlStr)
-    prompt = "搜索结果列表List##(descList)##的JSON数据格式包含标题##title##和剧情描述##desc##,"\
-             "请将搜索列表的标题##title##作为选项内容并且按列表选项的形式排列展示，"\
-             "且只展示该选项内容对应的剧情描述##desc##与##(wordKey)##最匹配的前三个选项且只保留三个选项,"\
+    prompt = "搜索结果列表List##(descList)##的JSON数据格式包含标题##title##和剧情描述##desc##。"\
+             "请将搜索列表的标题##title##作为选项内容,"\
+             "保留该选项内容对应的剧情描述##desc##与##(wordKey)##"\
+             "或该选项内容对应的标题##title##与##(wordKey)##匹配度较高的前三个选项,"\
+             "且只保留三个选项并按列表选项的形式排列展示,"\
              "优化列表选项的中文内容并删除非中文内容,"\
              "将每一个选项内容翻译成英文并且展示在后面," \
              "并在第二行summary该选项对应的剧情描述##desc##,"\
              "格式如下：##中文内容##(##英文内容##),"\
-             "最后提示用户选择一个列表选项。"\
-             "如果没有匹配到列表选项，则展示三个与##(wordKey)##匹配度很高的电影名称推荐给用户"
+             "最后提示用户选择一个列表选项,"\
+             "如果没有匹配到列表选项，必须展示三个与##(wordKey)##匹配度很高的电影名称推荐给用户。"
     return make_json_response({"message": "搜索结果",  "wordKey": word,"descList": descList, prompt: prompt})
 
 @app.route("/delete_word", methods=['DELETE'])
