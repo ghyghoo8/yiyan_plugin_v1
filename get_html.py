@@ -1,4 +1,4 @@
-from parsel import Selector
+from bs4 import BeautifulSoup
 import requests
 from string import Template
 
@@ -14,6 +14,6 @@ def getHtmlContent(word):
   page_text = response.text
   return page_text
 
-def getParseSelector(htmlContent):
-  selector = Selector(text=htmlContent)
-  return selector
+def getSoup(htmlContent):
+  soup = BeautifulSoup(htmlContent, 'html.parser')
+  return soup

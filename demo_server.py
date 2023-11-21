@@ -35,15 +35,23 @@ async def search_word():
     """
     word = request.json.get('word', "")
     htmlStr = get_html.getHtmlContent(word)
-    selector = get_html.getParseSelector(htmlStr)
-    titles = list(set([x.strip() for x in selector.css('h2 a::text').getall()]))
-    titles.remove('')
+    soup = get_html.getSoup(htmlStr)
+    links = list(set(s.a for s in soup.find_all('h2')))
+    print('links====>',links)
+    titles = list(set([link.get_text().strip() for link in links]))
+    print('titles====>',titles)
+    # 清除空值
+    if '' in titles:
+        titles.remove('')
     print('selector titles===>', titles)
     # print('htmlStr==>', htmlStr)
-    prompt = "将搜索结果(titles)按列表选项的形式展示出来，" \
-             "将每一个选项内容翻译出来并展示在下面，" \
+    prompt = "将搜索结果(titles)按列表选项的形式排列展示,"\
+             "且只展示与##(wordKey)##最匹配的三个选项,"\
+             "优化列表选项的中文内容并删除非中文内容,"\
+             "将每一个选项内容翻译成英文并且展示在后面," \
+             "格式如下：##中文内容##(##英文内容##),"\
              "最后提示用户选择一个列表选项"
-    return make_json_response({"message": "搜索结果", "titles": titles, prompt: prompt})
+    return make_json_response({"message": "搜索结果",  "wordKey": word,"titles": titles, prompt: prompt})
 
 @app.route("/delete_word", methods=['DELETE'])
 async def delete_word():
