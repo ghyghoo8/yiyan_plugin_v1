@@ -36,22 +36,33 @@ async def search_word():
     word = request.json.get('word', "")
     htmlStr = get_html.getHtmlContent(word)
     soup = get_html.getSoup(htmlStr)
+
+    descList = []
+    for s in soup.find_all('h2'):
+        spans = s.find_parent().find_all('span')
+        desc = spans.pop().get_text().strip()
+        title = s.a.get_text().strip()
+        item = { "title": title, "desc": desc}
+        descList.append(item)
+    print('descList===>', descList)
+
     links = list(set(s.a for s in soup.find_all('h2')))
-    print('links====>',links)
+    # print('links====>',links)
     titles = list(set([link.get_text().strip() for link in links]))
-    print('titles====>',titles)
+    # print('titles====>',titles)
     # 清除空值
     if '' in titles:
         titles.remove('')
-    print('selector titles===>', titles)
+    # print('selector titles===>', titles)
     # print('htmlStr==>', htmlStr)
-    prompt = "将搜索结果(titles)按列表选项的形式排列展示,"\
-             "且只展示与##(wordKey)##最匹配的三个选项,"\
+    prompt = "搜索结果列表List##(descList)##的JSON数据格式包含标题##title##和剧情描述##desc##,"\
+             "请将搜索列表的标题##title##按列表选项的形式排列展示"\
+             "且只展示剧情描述##desc##与##(wordKey)##最匹配的五个选项,"\
              "优化列表选项的中文内容并删除非中文内容,"\
              "将每一个选项内容翻译成英文并且展示在后面," \
              "格式如下：##中文内容##(##英文内容##),"\
              "最后提示用户选择一个列表选项"
-    return make_json_response({"message": "搜索结果",  "wordKey": word,"titles": titles, prompt: prompt})
+    return make_json_response({"message": "搜索结果",  "wordKey": word,"descList": descList, prompt: prompt})
 
 @app.route("/delete_word", methods=['DELETE'])
 async def delete_word():
