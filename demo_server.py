@@ -38,7 +38,8 @@ async def search_word():
     soup = get_html.getSoup(htmlStr)
 
     descList = []
-    for s in soup.find_all('h2'):
+    # 取前6个结果
+    for s in soup.find_all('h2')[0:5]:
         spans = s.find_parent().find_all('span')
         desc = spans.pop().get_text().strip()
         title = s.a.get_text().strip()
@@ -56,12 +57,14 @@ async def search_word():
     # print('selector titles===>', titles)
     # print('htmlStr==>', htmlStr)
     prompt = "搜索结果列表List##(descList)##的JSON数据格式包含标题##title##和剧情描述##desc##,"\
-             "请将搜索列表的标题##title##按列表选项的形式排列展示"\
-             "且只展示剧情描述##desc##与##(wordKey)##最匹配的五个选项,"\
+             "请将搜索列表的标题##title##作为选项内容并且按列表选项的形式排列展示，"\
+             "且只展示该选项内容对应的剧情描述##desc##与##(wordKey)##最匹配的前三个选项且只保留三个选项,"\
              "优化列表选项的中文内容并删除非中文内容,"\
              "将每一个选项内容翻译成英文并且展示在后面," \
+             "并在第二行summary该选项对应的剧情描述##desc##,"\
              "格式如下：##中文内容##(##英文内容##),"\
-             "最后提示用户选择一个列表选项"
+             "最后提示用户选择一个列表选项。"\
+             "如果没有匹配到列表选项，则展示三个与##(wordKey)##匹配度很高的电影名称推荐给用户"
     return make_json_response({"message": "搜索结果",  "wordKey": word,"descList": descList, prompt: prompt})
 
 @app.route("/delete_word", methods=['DELETE'])
