@@ -1,43 +1,15 @@
 openapi: 3.0.1
 info:
-    title: 单词本
-    description: 个性化的英文单词本，可以增加、删除和浏览单词本中的单词，背单词时从已有单词本中随机抽取单词生成句子或者段落。
+    title: 想看电影
+    description: 功能强大的电影搜索引擎，只要输入你想要看的电影名称，就能展示给你非常棒的搜索结果，并且能推荐更多更好看的电影资源。
     version: "v1"
 servers:
     - url: http://127.0.0.1:8081
 paths:
-    /get_wordbook:
-        get:
-            operationId: getWordbook
-            summary: 展示单词列表
-            responses:
-                "200":
-                    description: 列表展示完成
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/getWordbook"
-    /generate_sentences:
-        post:        
-            operationId: generateSentences
-            summary: 背单词，生成句子
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/generateSentences"
-            responses:
-                "200":
-                    description: 句子生成成功
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/responseSentences"
     /search_word:
         post:
             operationId: searchWord
-            summary: 搜索查询指定单词的意思
+            summary: 搜索查询指定的电影名
             requestBody:
                 required: true
                 content:
@@ -51,89 +23,39 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/messageResponse"
-    /add_word:
+    /get_code:
         post:
-            operationId: addWord
-            summary: 在单词本中添加一个单词
+            operationId: getCode
+            summary: 获取指定选项的电影资源
             requestBody:
                 required: true
                 content:
                     application/json:
                         schema:
-                            $ref: "#/components/schemas/addWord"
+                            $ref: "#/components/schemas/getCode"
             responses:
                 "200":
-                    description: 单词添加成功
+                    description: 搜索结果
                     content:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/messageResponse"
-    /delete_word:
-        delete:
-            operationId: deleteWord
-            summary: 从单词本中删除一个单词
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            $ref: "#/components/schemas/deleteWord"
-            responses:
-                "200":
-                    description: 单词删除成功
-                    content:
-                        application/json:
-                            schema:
-                                $ref: "#/components/schemas/messageResponse"
-
 components:
     schemas:
-        getWordbook:
-            type: object
-            required: [wordbook]
-            properties:
-                wordbook:
-                    type: array
-                    items:
-                        type: string
-                    description: 单词本单词列表
-        addWord:
-            type: object
-            required: [word]
-            properties:
-                word:
-                    type: string
-                    description: 需要添加到单词本中的一个单词
         searchWord:
             type: object
             required: [word]
             properties:
                 word:
                     type: string
-                    description: 请输入需要搜索的单词
-        deleteWord:
+                    description: 请输入想看的电影名称
+        getCode:
             type: object
             required: [word]
             properties:
                 word:
                     type: string
-                    description: 需要删除的单词
-        generateSentences:
-            type: object
-            required: [word_number]
-            properties:
-                word_number:
-                    type: integer
-                    description: 几个单词
-        responseSentences:
-            type: object
-            required: [words]
-            properties:
-                words:
-                    type: array
-                    items:
-                        type: string
-                        description: 随机抽取的英文单词
+                    description: 获取用户选择的电影名称
         messageResponse:
             type: object
             required: [message]
@@ -141,3 +63,4 @@ components:
                 message:
                     type: string
                     description: 回复信息
+        

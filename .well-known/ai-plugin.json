@@ -1,9 +1,9 @@
 {
     "schema_version": "v1",
-    "name_for_human": "单词本_ghy",
-    "name_for_model": "wordbook_ghy",
-    "description_for_human": "个性化的英文单词本，可以增加、删除和浏览单词本中的单词，并可以按要求从单词本中随机抽取单词生成句子或段落",
-    "description_for_model": "帮助用户管理单词本，可以增加、删除、浏览单词本，背单词时可以指定随机抽取单词本中若干个单词，生成句子会段落",
+    "name_for_human": "想看电影_ghy",
+    "name_for_model": "movie_ghy",
+    "description_for_human": "功能强大的电影搜索引擎，只要输入你想要看的电影名称，就能展示给你非常棒的搜索结果，并且能推荐更多更好看的电影资源",
+    "description_for_model": "帮助用户快速搜索并关联到想要看的电影，并且提供一个搜索结果的列表，当用户选择自己想看的电影选项，就能得到对应的电影资源",
     "auth": {
         "type": "none"
     },

@@ -1,0 +1,47 @@
+version: 0.0.1
+examples:
+      - context: # 对话历史
+          - role: user
+            content: 我想要看怒火
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: searchWord
+              # 思考过程，对触发有帮助
+              thoughts: 这是一个搜索电影名的需求
+              requestArguments: 
+                word: 怒火
+                query: 我想要看怒火
+          - role: user
+            content: 第一部
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: getCode
+              # 思考过程，对触发有帮助
+              thoughts: 返回序号为1的电影名称
+              requestArguments: 
+                word: 电影名称
+                query: 返回用户选择的电影资源
+          - role: user
+            content: 1
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: getCode
+              # 思考过程，对触发有帮助
+              thoughts: 返回序号为1的电影名称
+              requestArguments: 
+                word: 电影名称
+                query: 返回用户选择的电影资源
+      # 反例，无需触发此插件的任一某个接口
+      - context:
+          - role: user
+            content: 怎么养成记单词的习惯?
+          - role: bot
+            # 无需触发
+            plugin:  
+              thoughts: 我不需要使用以上工具
