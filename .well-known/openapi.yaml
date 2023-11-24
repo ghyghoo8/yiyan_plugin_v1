@@ -26,7 +26,7 @@ paths:
     /get_code:
         post:
             operationId: getCode
-            summary: 获取指定选项的电影资源
+            summary: 获取用户想看的电影资源
             requestBody:
                 required: true
                 content:
