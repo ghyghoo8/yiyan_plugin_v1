@@ -21,10 +21,10 @@ examples:
               # 应当触发的接口operationId
               operationId: getCode
               # 思考过程，对触发有帮助
-              thoughts: 返回序号为1的电影名称
+              thoughts: 返回列表序号为##1##的电影名称
               requestArguments: 
                 word: 电影名称
-                query: 返回用户选择的电影资源
+                query: 第一部
           - role: user
             content: 1
           - role: bot
@@ -33,10 +33,10 @@ examples:
               # 应当触发的接口operationId
               operationId: getCode
               # 思考过程，对触发有帮助
-              thoughts: 返回序号为1的电影名称
+              thoughts: 返回列表序号为##1##的电影名称
               requestArguments: 
                 word: 电影名称
-                query: 返回用户选择的电影资源
+                query: 1
       # 反例，无需触发此插件的任一某个接口
       - context:
           - role: user

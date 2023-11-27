@@ -56,7 +56,7 @@ async def search_word():
     # print('selector titles===>', titles)
     # print('htmlStr==>', htmlStr)
     prompt = "搜索结果列表List##(descList)##的JSON数据格式包含标题##title##和剧情描述##desc##， 并且只针对当前搜索结果。"\
-             "请将搜索列表的标题##title##作为选项内容,"\
+             "根据当前搜索结果列表，将搜索列表的标题##title##作为选项内容,"\
              "保留该选项内容对应的标题##title##与##(wordKey)##匹配度较高的前三个选项,"\
              "且只保留三个选项并按列表选项的形式排列展示,"\
              "优化列表选项的中文内容并删除非中文内容,"\
