@@ -21,22 +21,34 @@ examples:
               # 应当触发的接口operationId
               operationId: getCode
               # 思考过程，对触发有帮助
-              thoughts: 返回列表序号为##1##的电影名称
+              thoughts: 返回列表中第一项的电影名称
               requestArguments: 
                 word: 电影名称
                 query: 第一部
           - role: user
-            content: 1
+            content: 第二部
           - role: bot
             # 触发插件
             plugin:
               # 应当触发的接口operationId
               operationId: getCode
               # 思考过程，对触发有帮助
-              thoughts: 返回列表序号为##1##的电影名称
+              thoughts: 返回列表中第二项的电影名称
               requestArguments: 
                 word: 电影名称
-                query: 1
+                query:  第二部
+          - role: user
+            content: 3
+          - role: bot
+            # 触发插件
+            plugin:
+              # 应当触发的接口operationId
+              operationId: getCode
+              # 思考过程，对触发有帮助
+              thoughts: 返回列表中第三项的电影名称
+              requestArguments: 
+                word: 电影名称
+                query: 3
       # 反例，无需触发此插件的任一某个接口
       - context:
           - role: user

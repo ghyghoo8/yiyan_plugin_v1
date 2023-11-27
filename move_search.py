@@ -65,7 +65,8 @@ async def search_word():
              "格式如下：##中文内容##(##英文内容##),"\
              "最后提示用户选择一个列表选项。"\
              "如果没有匹配到列表选项，必须展示三个与##(wordKey)##匹配度很高的电影名称推荐给用户，"\
-             "并按列表选项的形式排列展示，序号从4开始累加。"
+             "并按列表选项的形式排列展示，序号从4开始累加。"\
+             "用户选择举例: ##1##等于第一部，##2##等于第二部，##选项1##等于第一部。"
     return make_json_response({"message": "搜索结果",  "wordKey": word,"descList": descList, prompt: prompt})
 
 @app.route("/logo.png")
