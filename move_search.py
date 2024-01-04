@@ -24,6 +24,7 @@ async def get_code():
         获取电影资源
     """
     word = request.json.get('word', "")
+    # 可使用markdown格式加入html标签
     return make_json_response({"message": "下面是对应的电影资源",  "wordKey": word})
 
 
